@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}🧠 Resume Roastmaster{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Hero Section -->
+    <div class="text-center mb-16 fade-in-up">
+        <div class="mb-8">
+            <h1 class="text-6xl md:text-7xl font-bold mb-4 hero-gradient bg-clip-text text-transparent">
+                🧠 Resume Roastmaster
+            </h1>
+            <p class="text-xl md:text-2xl opacity-80 typewriter">
+                Brutally Honest AI Resume Reviews for New Grads
+            </p>
+        </div>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="glassmorphism rounded-2xl p-8 mb-8 fade-in-up">
+        <form action="/roast" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+            <!-- Job Title Input -->
+            <div class="mb-8">
+                <label for="job_title" class="block text-lg font-semibold mb-3">
+                    🎯 Target Job Title
+                </label>
+                <input 
+                    type="text" 
+                    id="job_title" 
+                    name="job_title" 
+                    required
+                    placeholder="e.g., Software Engineer New Grad at Meta"
+                    class="w-full px-6 py-4 text-lg bg-white bg-opacity-10 border-2 border-white border-opacity-20 rounded-xl focus:ring-4 focus:ring-blue-400 focus:border-transparent text-white placeholder-white placeholder-opacity-60 transition-all duration-300"
+                >
+            </div>
+            
+            <!-- File Upload Section -->
+            <div class="mb-8">
+                <label class="block text-lg font-semibold mb-3">
+                    📂 Upload Resume File
+                </label>
+                <div class="upload-area border-2 border-dashed border-white border-opacity-30 rounded-xl p-8 text-center cursor-pointer transition-all duration-300">
+                    <input 
+                        type="file" 
+                        id="resume_file" 
+                        name="resume_file" 
+                        accept=".pdf,.docx,.txt"
+                        class="hidden"
+                        onchange="handleFileSelect(this)"
+                    >
+                    <label for="resume_file" class="cursor-pointer">
+                        <div class="text-6xl mb-4">📄</div>
+                        <p class="text-xl font-medium mb-2">Drop your resume PDF/DOCX here or click to upload</p>
+                        <p class="text-sm opacity-60">Supports PDF, DOCX, and TXT files (max 10MB)</p>
+                    </label>
+                </div>
+                <div id="file-info" class="mt-4 hidden"></div>
+            </div>
+            
+            <!-- OR Divider -->
+            <div class="mb-8 text-center">
+                <div class="flex items-center">
+                    <div class="flex-1 h-px bg-white bg-opacity-20"></div>
+                    <span class="px-4 text-sm font-medium opacity-60">OR</span>
+                    <div class="flex-1 h-px bg-white bg-opacity-20"></div>
+                </div>
+            </div>
+            
+            <!-- Text Input -->
+            <div class="mb-8">
+                <label for="resume_text" class="block text-lg font-semibold mb-3">
+                    📝 Paste Resume Content
+                </label>
+                <textarea 
+                    id="resume_text" 
+                    name="resume_text" 
+                    rows="8"
+                    placeholder="Paste your resume content here... (Include all sections: experience, education, skills, projects, etc.)"
+                    class="w-full px-6 py-4 text-lg bg-white bg-opacity-10 border-2 border-white border-opacity-20 rounded-xl focus:ring-4 focus:ring-blue-400 focus:border-transparent text-white placeholder-white placeholder-opacity-60 resize-none transition-all duration-300"
+                    oninput="autoResize(this)"
+                ></textarea>
+                <p class="text-sm opacity-60 mt-2">
+                    Include all relevant sections: work experience, education, skills, projects, etc.
+                </p>
+            </div>
+            
+            <!-- Action Button -->
+            <div class="text-center">
+                <button 
+                    type="submit" 
+                    class="roast-button text-white px-12 py-6 rounded-xl font-bold text-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                >
+                    🔥 Roast Me
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Loading Section -->
+    <div id="loading-section" class="hidden glassmorphism rounded-2xl p-8 mb-8 fade-in-up">
+        <div class="text-center">
+            <div class="text-4xl mb-4">🤖</div>
+            <h2 class="text-2xl font-bold mb-4">AI Agents Are Analyzing Your Resume...</h2>
+            <div class="w-full bg-white bg-opacity-20 rounded-full h-3 mb-4">
+                <div id="loading-bar" class="loading-bar h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></div>
+            </div>
+            <p class="text-sm opacity-60">This may take a few moments while our AI agents evaluate your resume</p>
+        </div>
+    </div>
+
+    <!-- Results Section (Hidden initially) -->
+    <div id="results-section" class="hidden">
+        <!-- Results will be populated here -->
+    </div>
+</div>
+{% endblock %} 

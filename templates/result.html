@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}🎯 Your Resume Roast Results{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12 fade-in-up">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 hero-gradient bg-clip-text text-transparent">
+            🎯 Your Resume Roast Results
+        </h1>
+        <p class="text-xl opacity-80">
+            Target Position: <span class="font-semibold text-blue-300">{{ job_title }}</span>
+        </p>
+    </div>
+
+    <!-- Score Section -->
+    <div class="glassmorphism rounded-2xl p-8 mb-8 fade-in-up">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold mb-6">Overall Score</h2>
+            <div class="relative inline-block mb-6">
+                <div class="w-48 h-48 rounded-full score-ring p-2">
+                    <div class="w-full h-full rounded-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="text-5xl font-bold text-white">{{ analysis.score }}</div>
+                            <div class="text-lg opacity-80">/ 100</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-2xl font-semibold mb-4 text-yellow-300">{{ analysis.verdict }}</div>
+            <p class="text-lg opacity-90 max-w-3xl mx-auto">{{ analysis.summary }}</p>
+        </div>
+    </div>
+
+    <!-- Score Breakdown -->
+    <div class="glassmorphism rounded-2xl p-8 mb-8 fade-in-up">
+        <h2 class="text-2xl font-bold mb-6 text-center">
+            📊 Detailed Score Breakdown
+        </h2>
+        <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div class="text-center">
+                <div class="text-3xl font-bold text-blue-400 mb-2">{{ analysis.breakdown.technical_skills }}/25</div>
+                <div class="text-sm opacity-80">Technical Skills</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-green-400 mb-2">{{ analysis.breakdown.experience_projects }}/25</div>
+                <div class="text-sm opacity-80">Experience & Projects</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-yellow-400 mb-2">{{ analysis.breakdown.formatting_structure }}/15</div>
+                <div class="text-sm opacity-80">Formatting</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-purple-400 mb-2">{{ analysis.breakdown.action_impact }}/15</div>
+                <div class="text-sm opacity-80">Action & Impact</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-red-400 mb-2">{{ analysis.breakdown.ats_keywords }}/10</div>
+                <div class="text-sm opacity-80">ATS Keywords</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-indigo-400 mb-2">{{ analysis.breakdown.initiative_differentiators }}/10</div>
+                <div class="text-sm opacity-80">Initiative</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Competitive Analysis -->
+    <div class="glassmorphism rounded-2xl p-8 mb-8 fade-in-up">
+        <h2 class="text-2xl font-bold mb-6 text-center">
+            🏆 Competitive Analysis
+        </h2>
+        
+        <div class="mb-8">
+            <div class="bg-white bg-opacity-10 rounded-xl p-6 mb-6">
+                <h3 class="font-semibold mb-2 text-lg">Market Position</h3>
+                <p class="text-xl font-bold text-blue-300">{{ analysis.market_position }}</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white bg-opacity-10 rounded-xl p-6">
+                    <h3 class="font-semibold mb-4 text-green-300 text-lg">
+                        ✅ Strengths
+                    </h3>
+                    <ul class="space-y-3">
+                        {% for strength in analysis.strengths %}
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-3 mt-1">•</span>
+                            <span class="opacity-90">{{ strength }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 rounded-xl p-6">
+                    <h3 class="font-semibold mb-4 text-red-300 text-lg">
+                        ⚠️ Areas for Improvement
+                    </h3>
+                    <ul class="space-y-3">
+                        {% for weakness in analysis.weaknesses %}
+                        <li class="flex items-start">
+                            <span class="text-red-400 mr-3 mt-1">•</span>
+                            <span class="opacity-90">{{ weakness }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white bg-opacity-10 rounded-xl p-6">
+            <h3 class="font-semibold mb-4 text-blue-300 text-lg">➕ Missing Elements</h3>
+            <ul class="space-y-3">
+                {% for element in analysis.missing_elements %}
+                <li class="flex items-start">
+                    <span class="text-blue-400 mr-3 mt-1">•</span>
+                    <span class="opacity-90">{{ element }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- The Roast -->
+    <div class="terminal-bg rounded-2xl p-8 mb-8 fade-in-up">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold mb-2 text-red-400">
+                🔥 The Roast
+            </h2>
+            <p class="text-lg opacity-80">Brace yourself for some brutally honest feedback...</p>
+        </div>
+        
+        <div class="space-y-6">
+            {% for roast in analysis.roast %}
+            <div class="bg-black bg-opacity-30 rounded-xl p-6 border border-gray-600 roast-line">
+                <div class="flex items-start">
+                    <span class="text-2xl font-bold text-yellow-400 mr-4 font-mono">{{ loop.index }}.</span>
+                    <p class="text-lg font-mono leading-relaxed">{{ roast }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="text-center space-x-6 mb-8">
+        <a href="/" class="inline-block glassmorphism text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            🔄 Roast Another Resume
+        </a>
+        <button onclick="window.print()" class="inline-block glassmorphism text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            🖨️ Print Results
+        </button>
+    </div>
+</div>
+
+<style>
+    @media print {
+        .floating-shapes, footer { display: none; }
+        .glassmorphism, .terminal-bg { 
+            background: white !important; 
+            color: black !important;
+            border: 1px solid #ccc !important;
+        }
+        .score-ring {
+            background: #f0f0f0 !important;
+        }
+    }
+</style>
+{% endblock %} 

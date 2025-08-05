@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}ResumeRoast - Error{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto text-center">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+        <div class="mb-6">
+            <i class="fas fa-exclamation-triangle text-6xl text-red-500 mb-4"></i>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">
+                Oops! Something went wrong
+            </h1>
+            <p class="text-lg text-gray-600 mb-6">
+                The Roastmaster encountered an error while analyzing your resume.
+            </p>
+        </div>
+        
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+            <p class="text-red-700 font-mono text-sm">{{ error }}</p>
+        </div>
+        
+        <div class="space-x-4">
+            <a href="/" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Try Again
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 
